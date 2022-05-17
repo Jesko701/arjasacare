@@ -10,11 +10,13 @@ const FormPembeli = () => {
   const inputKeluhan = useRef(null)
   const inputSaran_dari_apotik = useRef(null)
   const inputGambarTTD = useRef(null)
+  const inputNomorHP = useRef(null);
 
   const[getDataPembeli, setDataPembeli] = useState({
     nama: "",
     nik: "",
     alamat: "",
+    nomor_hp: "",
     riwayatAlergiPenyakit: "",
     keluhan:"",
     saranDariApotik:"",
@@ -39,6 +41,7 @@ const FormPembeli = () => {
     data["nama"] = inputNama;
     data["nik"] = inputNik;
     data["alamat"] = inputAlamat;
+    data["nomor_hp"] = inputNomorHP;
     data["riwayatAlergiPenyakit"] = inputRiwayat_alergi_penyakit;
     data["keluhan"] = inputKeluhan;
     data["saranDariApotik"] = inputSaran_dari_apotik
@@ -93,7 +96,21 @@ const FormPembeli = () => {
                 </div>
               </div>
 
-              <div class="mb-3 row" />
+              <div class="mb-3 row">
+                <label for="html5-email-input" class="col-form-label">
+                  Alamat
+                </label>
+                <div>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="nomorHP"
+                    placeholder="Nomor HP"
+                    id="html5-email-input"
+                    ref={inputNomorHP}
+                  />
+                </div>
+              </div>
 
               <div class="mb-3 row">
                 <label for="html5-email-input" class="col-form-label">

@@ -19,10 +19,8 @@ const ListPerson = (props) => {
     }
   };
 
-  const getSearchData = (value) => {
-     if (!getFilteredName) {
-       return value;
-     }
+  const handleDetailClick = () => {
+    
   }
 
   useEffect(() => {
@@ -60,6 +58,7 @@ const ListPerson = (props) => {
                             <button
                               type="button"
                               className="btn rounded-pill btn-outline-secondary mr-3"
+                              onClick={handleDetailClick}
                             >
                               Detail
                             </button>

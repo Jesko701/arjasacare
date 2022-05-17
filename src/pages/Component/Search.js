@@ -8,9 +8,6 @@ const Search = () => {
     html.classList.add("layout-menu-expanded");
   };
 
-  const sendData = () => {
-    
-  }
 
   return (
     <>

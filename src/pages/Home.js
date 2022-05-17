@@ -1,6 +1,6 @@
 import Dashboard from "./Component/Dashboard";
 import ListPerson from "./Component/ListPerson";
-import Search from "./Component/Search";
+import Search from "./Component/Search"
 
 const Home = () => {
   return <>

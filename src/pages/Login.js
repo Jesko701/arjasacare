@@ -6,13 +6,13 @@ const Login = () => {
   const [isSpin, setIsSpin] = useState(false);
   const navigate = useNavigate();
 
-  const var_username = useRef()
-  const var_pw = useRef()
+  const var_username = useRef();
+  const var_pw = useRef();
 
   const submitHandler = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      const response = var_username.current.value + " " + var_pw.current.value
+      const response = var_username.current.value + " " + var_pw.current.value;
       /* await axios.post(
         `https://5eb2-103-107-198-164.ngrok.io/api/v1/login/`,
         {
@@ -20,7 +20,7 @@ const Login = () => {
           password: var_pw
         }
       ); */
-      
+
       setIsSpin(true);
 
       console.log(response);
