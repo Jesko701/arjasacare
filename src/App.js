@@ -4,6 +4,8 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import TambahKaryawan from "./pages/addKaryawan";
 import TambahPembeli from "./pages/addPembeli";
+import DetailPelanggan from "./pages/detailPelanggan"
+import TambahTransaksi from "./pages/tambahTransaksi";
 
 
 function App() {
@@ -15,6 +17,8 @@ function App() {
           <Route path="login" element= {<Login/>}/>
           <Route path="tambahKaryawan" element = {<TambahKaryawan/>}/>
           <Route path="tambahPembeli" element = {<TambahPembeli/>}/>
+          <Route path="detail" element = {<DetailPelanggan/>}/>
+          <Route path="tambahTransaksi" element = {<TambahTransaksi/>}></Route>
         </Routes>
       </Router>
     </div>
