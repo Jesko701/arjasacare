@@ -8,17 +8,18 @@ const formTransaksi = () => {
   const inputSaran = UseRef(null);
 
   const[getData, setData] = UseState([{
-      obat: inputObat,
-      alergi: inputAlergi,
-      keluhan: inputKeluhan,
-      saran: inputSaran
+      obat: "",
+      alergi: "",
+      keluhan: "",
+      saran: ""
   }]);
 
   const handleSubmitTransaksi = async (e) => {
       e.preventDefault()
       handleInput()
       try {
-          
+          const inputToDB = await axios.post(``, getData)
+          console.log(inputToDB);
       } catch (error) {
           console.log(error.error);
           alert(error.error);
