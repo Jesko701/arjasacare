@@ -16,9 +16,9 @@ function App() {
           <Route path="home" element={<Home />} />
           <Route path="login" element= {<Login/>}/>
           <Route path="tambahKaryawan" element = {<TambahKaryawan/>}/>
-          <Route path="tambahPembeli" element = {<TambahPembeli/>}/>
+          <Route path="RegPelanggan" element = {<TambahPembeli/>}/>
           <Route path="detail" element = {<DetailPelanggan/>}/>
-          <Route path="tambahTransaksi" element = {<TambahTransaksi/>}></Route>
+          <Route path="transaksi" element = {<TambahTransaksi/>}></Route>
         </Routes>
       </Router>
     </div>

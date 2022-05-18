@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { useLocation, NavLink } from "react-router-dom";
 
 const Dashboard = () => {
   const pathName = useLocation().pathname;
   const menuActive = {
     produk: pathName == "/home",
-    tambahPelanggan: pathName == "/tambahPembeli",
+    tambahPelanggan: pathName == "/RegPelanggan",
     tambahKaryawan: pathName == "/tambahKaryawan",
     profile: pathName == "/profile",
   };
@@ -51,7 +51,7 @@ const Dashboard = () => {
               menuActive.tambahPelanggan ? "active" : ""
             }`}
           >
-            <NavLink to="/tambahPembeli" className="menu-link">
+            <NavLink to="/RegPelanggan" className="menu-link">
               <i className="menu-icon tf-icons bx bx-layer-plus"></i>
               <div>Form Tambah Pelanggan</div>
             </NavLink>
