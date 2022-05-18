@@ -2,48 +2,61 @@ import axios from "axios";
 import React, { useRef, useState } from "react";
 
 const FormPembeli = () => {
-
-  const inputNama = useRef(null)
-  const inputAlamat = useRef(null)
-  const inputGambarTTD = useRef(null)
+  const inputNama = useRef(null);
+  const inputAlamat = useRef(null);
+  const inputGambarTTD = useRef(null);
   const inputNomorHP = useRef(null);
 
-  const[getDataPembeli, setDataPembeli] = useState({
+  const [getDataPembeli, setDataPembeli] = useState({
     nama: "",
-    alamat: "",
     nomor_hp: "",
-    saranDariApotik:"",
-    gambatTTD:""
+    alamat: null,
+    tanda_tangan: null,
   });
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     addDataIntoUseState();
+    const bodyFormData = new FormData();
+    bodyFormData.append("nama", getDataPembeli.nama);
+    bodyFormData.append("nomor_hp", getDataPembeli.nomor_hp);
+    bodyFormData.append("alamat", getDataPembeli.alamat);
+    bodyFormData.append("tanda_tangan", getDataPembeli.tanda_tangan);
+    console.log(getDataPembeli);
     try {
-      const insert = await axios.post("", getDataPembeli);
+      const insert = await axios({
+        method: "post",
+        url: "http://72f8-103-107-199-133.ngrok.io/api/v1/pelanggan",
+        data: bodyFormData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization:
+            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC92MVwvbG9naW4iLCJpYXQiOjE2NTI3Nzg3MDcsImV4cCI6MTY1MzM4MzUwNywibmJmIjoxNjUyNzc4NzA3LCJqdGkiOiJoNVIwSkdhVnRFQzhyTWJNIiwic3ViIjoxNywicHJ2IjoiNWRhNWMzZTIwZTEzNzM3YjJlZmY2NjI1NjJmNjlkOTFkMDFlODllMyJ9.n_xOedfvNesN75Ku4770FGUJpfy4jKNULz2-G1lCME0",
+        },
+      });
       console.log(insert);
       alert("Data berhasil di-input");
     } catch (msg) {
-      alert(msg.error)
-      console.log(getDataPembeli)
+      alert(msg.error);
+      console.log(msg.response.data);
     }
-  }
-  
-  const addDataIntoUseState = () => {
-    let data = getDataPembeli
-    data["nama"] = inputNama;
-    data["alamat"] = inputAlamat;
-    data["nomor_hp"] = inputNomorHP;
-    data["gambatTTD"] = inputGambarTTD
-    setDataPembeli(data);
-  }
+  };
 
+  const addDataIntoUseState = () => {
+    let data = getDataPembeli;
+    data["nama"] = inputNama.current.value;
+    data["alamat"] = inputAlamat.current.value;
+    data["nomor_hp"] = inputNomorHP.current.value;
+    data["tanda_tangan"] = inputGambarTTD.current.files[0];
+    setDataPembeli(data);
+  };
 
   return (
     <>
       <div class="mx-auto">
         <div class="card mb-4">
-          <h5 class="card-header">Form Pembeli</h5>
+          <h5 class="card-header">Form Pelanggan</h5>
           <form encType="multipart/form-data" onSubmit={handleSubmit}>
             <div class="card-body">
               <div class="row">
@@ -67,9 +80,9 @@ const FormPembeli = () => {
                 <div class="col">
                   <label
                     for="html5-search-input"
-                    class="col-md-4 col-form-label"
+                    class="col-md-7 col-form-label"
                   >
-                    Nomor HP
+                    Nomor HP <b>(10 - 15 Karakter)*</b>
                   </label>
                   <div class="col-md-12">
                     <input
@@ -122,7 +135,7 @@ const FormPembeli = () => {
                 </button>
               </div>
             </div>
-            <br/>
+            <br />
           </form>
         </div>
       </div>

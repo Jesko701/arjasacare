@@ -1,10 +1,22 @@
 import axios from "axios";
-import { useState as UseState } from "react";
+import { useEffect as UseEffect, useState as UseState } from "react";
+import { CSVLink } from "react-csv";
 
 const detail = (props) => {
-  const [getDetail, setDetail] = UseState([{}]);
+  const kopCSV = [
+    { label: "Nama Panjang", key: "fullname" },
+    { label: "Nomor HP", key: "nomor_hp" },
+    { label: "Alamat", key: "alamat" },
+    { label: "Obat", key: "obat" },
+    { label: "Alergi", key: "alergi" },
+    { label: "Keluhan", key: "keluhan" },
+    { label: "Saran", key: "saran" },
+    { label: "Tanda Tangan", key: "tanda_tangan" },
+  ];
 
-  const fetchDataTransaksi = async (props) => {
+  const [getDetail, setDetail] = UseState();
+
+  const fetchDataTransaksi = async (e) => {
     try {
       const getDataFromAPI = await axios.get(``);
       console.log(getDataFromAPI);
@@ -13,6 +25,27 @@ const detail = (props) => {
       console.log(msg.error());
     }
   };
+
+  const fetchDataPelanggan = async (e) => {
+    try {
+      const getDataFromAPI = await axios.get(``);
+      setDetail(getDetail.concat(getDataFromAPI));
+    } catch (error) {
+      alert(error.message);
+      console.log(error);
+    }
+  };
+
+  const csvReport = {
+    data: getDetail,
+    headers: kopCSV,
+    filename: "Detail_Pelanggan.csv",
+  };
+
+  UseEffect(() => {
+    fetchDataTransaksi();
+    fetchDataPelanggan();
+  }, []);
 
   return (
     <>
@@ -26,8 +59,6 @@ const detail = (props) => {
               <h3 class="card-title">Nama: {props.nama}</h3>
               <div class="row">
                 <div class="col">
-                  <b>NIK: {props.nik}</b>
-                  <div class="mb-3 row" />
                   <b>Alamat: {props.alamat}</b>
                   <div class="mb-3 row" />
                   <b>No Telepon: {props.noTelp}</b>
@@ -39,14 +70,14 @@ const detail = (props) => {
                 </div>
                 <div class="col">
                   <b>Tanda Tangan: </b>
-                  <img src={props.idGambarTTD}></img>
+                  <img src={props.tanda_tangan}></img>
                 </div>
               </div>
               <button
                 type="button"
                 class="btn rounded-pill btn-outline-success mr-3"
               >
-                Tambah Stok
+                Tambah Transaksi
               </button>
               <button
                 type="button"
@@ -59,6 +90,9 @@ const detail = (props) => {
                 class="btn rounded-pill btn-outline-danger mr-3"
               >
                 Hapus
+              </button>
+              <button type="button" class="btn btn-info float-end">
+                Download Excel
               </button>
             </div>
           </div>

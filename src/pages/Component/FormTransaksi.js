@@ -15,10 +15,20 @@ const formTransaksi = () => {
   }]);
 
   const handleSubmitTransaksi = async (e) => {
-      e.preventDefault()
-      handleInput()
+      e.preventDefault();
+      handleInput();
+
+      const bodyFormData = new FormData();
+      bodyFormData.append("obat", getData.obat);
+      bodyFormData.append("alergi", getData.alergi);
+      bodyFormData.append("keluhan", getData.keluhan);
+      bodyFormData.append("saran", getData.saran);
       try {
-          const inputToDB = await axios.post(``, getData)
+          const inputToDB = await axios({
+            method: "post",
+            url: ``,
+            data: bodyFormData
+          });
           console.log(inputToDB);
       } catch (error) {
           console.log(error.error);
@@ -28,12 +38,11 @@ const formTransaksi = () => {
 
   const handleInput = () => {
       let tmpData = getData;
-      tmpData['obat'] = inputObat;
-      tmpData['alergi'] = inputAlergi;
-      tmpData['keluhan'] = inputKeluhan;
-      tmpData['saran'] = inputSaran;
+      tmpData['obat'] = inputObat.current.value;
+      tmpData['alergi'] = inputAlergi.current.value;
+      tmpData['keluhan'] = inputKeluhan.current.value;
+      tmpData['saran'] = inputSaran.current.value;
       setData(tmpData);
-
   }
   return (
     <>

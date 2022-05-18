@@ -7,7 +7,7 @@ const FormKaryawan = () => {
   const inputPassword = useRef(null);
 
   const [dataKaryawan, setDataKaryawan]   = useState({
-    nama: "",
+    fullname: "",
     username: "",
     password: "",
   });
@@ -15,8 +15,17 @@ const FormKaryawan = () => {
   const handleSubmitKaryawan = async (e) => {
     e.preventDefault();
     handleInput();
+
+    const bodyFormData = new FormData();
+    bodyFormData.append("fullname", dataKaryawan.fullname);
+    bodyFormData.append("username", dataKaryawan.username);
+    bodyFormData.append("password", dataKaryawan.password);
     try {
-      const data = axios.post(``, dataKaryawan);
+      const data = await axios({
+        method: "post",
+        url: "",
+        data: bodyFormData,
+      });
       console.log(data);
       alert("Data berhasil diinput");
     } catch (event) {
@@ -27,9 +36,9 @@ const FormKaryawan = () => {
 
   const handleInput = () => {
     let myData = dataKaryawan;
-    myData["nama"] = inputNama;
-    myData["username"] = inputUsername;
-    myData["password"] = inputPassword;
+    myData["fullname"] = inputNama.current.value;
+    myData["username"] = inputUsername.current.value;
+    myData["password"] = inputPassword.current.value;
     setDataKaryawan(myData);
   };
 
