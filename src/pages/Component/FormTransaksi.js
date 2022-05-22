@@ -26,7 +26,7 @@ const formTransaksi = () => {
       try {
           const inputToDB = await axios({
             method: "post",
-            url: ``,
+            url: `https://arjasa-care-api.herokuapp.com/api/v1/transaksi/`,
             data: bodyFormData
           });
           console.log(inputToDB);

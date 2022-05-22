@@ -2,16 +2,14 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const ListPerson = (props) => {
-  const [getOrang, setOrang] = useState([{
-    nama: "Joy"
-  }]);
+  const [getOrang, setOrang] = useState();
   const [getFilteredName, setFilteredName] = useState();
 
   const getDataFromAPI = async (e) => {
     e.preventDefault();
     try {
-      const getData = await axios.get(``);
-      setOrang(getData);
+      const getData = await axios.get(`https://arjasa-care-api.herokuapp.com/api/v1/pelanggan`);
+      setOrang(getData.response.data.data);
       console.log(getOrang);
     } catch (msg) {
       console.error(msg.error);

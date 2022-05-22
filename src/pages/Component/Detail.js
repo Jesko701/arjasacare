@@ -11,10 +11,19 @@ const detail = (props) => {
     { label: "Alergi", key: "alergi" },
     { label: "Keluhan", key: "keluhan" },
     { label: "Saran", key: "saran" },
-    { label: "Tanda Tangan", key: "tanda_tangan" },
   ];
 
-  const [getDetail, setDetail] = UseState();
+  const [getDetail, setDetail] = UseState([
+    {
+      fullname: "joy",
+      nomor_hp: "0822222222",
+      alamat: "Tes",
+      obat: "Tes1",
+      alergi: "Tes2",
+      keluhan: "Keluhan",
+      saran: "Saran",
+    },
+  ]);
 
   const fetchDataTransaksi = async (e) => {
     try {
@@ -63,8 +72,6 @@ const detail = (props) => {
                   <div class="mb-3 row" />
                   <b>No Telepon: {props.noTelp}</b>
                   <div class="mb-3 row" />
-                  <b>Usia: {props.usia} </b>
-                  <div class="mb-3 row" />
                   <b>Tanggal Input: {props.tglInput}</b>
                   <div class="mb-3 row" />
                 </div>
@@ -81,12 +88,6 @@ const detail = (props) => {
               </button>
               <button
                 type="button"
-                class="btn rounded-pill btn-outline-secondary mr-3"
-              >
-                Ubah
-              </button>
-              <button
-                type="button"
                 class="btn rounded-pill btn-outline-danger mr-3"
               >
                 Hapus
@@ -100,6 +101,19 @@ const detail = (props) => {
             <div className="card-body">
               <h3 className="card-title">Daftar List Transaksi</h3>
               <div className="table-responsive text-nowrap">
+                <div class="input-group">
+                  <input
+                    type="search"
+                    class="form-control rounded"
+                    placeholder="Search"
+                    aria-label="Search"
+                    aria-describedby="search-addon"
+                  />
+                  <button type="button" class="btn btn-outline-primary">
+                    search
+                  </button>
+                </div>
+                <div class="mb-3 row" />
                 <table className="table table-striped">
                   <tbody className="table-border-bottom-0">
                     <tr>

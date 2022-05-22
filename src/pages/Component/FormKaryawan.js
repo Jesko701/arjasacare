@@ -23,7 +23,7 @@ const FormKaryawan = () => {
     try {
       const data = await axios({
         method: "post",
-        url: "",
+        url: "https://arjasa-care-api.herokuapp.com/api/v1/karyawan",
         data: bodyFormData,
       });
       console.log(data);

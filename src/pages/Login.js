@@ -11,22 +11,20 @@ const Login = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    const response = var_username.current.value + " " + var_pw.current.value;
     try {
-      const response = var_username.current.value + " " + var_pw.current.value;
-      /* await axios.post(
-        `https://5eb2-103-107-198-164.ngrok.io/api/v1/login/`,
+      const login = await axios.post(
+        `https://arjasa-care-api.herokuapp.com/api/v1/login`,
         {
-          username: var_username,
-          password: var_pw
+          username: var_username.current.value,
+          password: var_pw.current.value
         }
-      ); */
-
+      );
       setIsSpin(true);
-
-      console.log(response);
       navigate("/home");
-    } catch (error) {
-      console.error(error);
+    } catch (msg) {
+      alert("Gagal Login " + msg.error)
+      console.log(msg);
     }
   };
   return (

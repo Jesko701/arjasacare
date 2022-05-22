@@ -27,7 +27,7 @@ const FormPembeli = () => {
     try {
       const insert = await axios({
         method: "post",
-        url: "http://72f8-103-107-199-133.ngrok.io/api/v1/pelanggan",
+        url: "https://arjasa-care-api.herokuapp.com/api/v1/pelanggan",
         data: bodyFormData,
         headers: {
           "Content-Type": "multipart/form-data",
