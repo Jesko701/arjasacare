@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useRef, useState } from "react";
+import { useAuth } from "../../Config/Auth";
 
 const Search = () => {
   const [isProfileClicked, setIsProfileClicked] = useState(false);
@@ -7,6 +9,29 @@ const Search = () => {
     const html = document.getElementById("html");
     html.classList.add("layout-menu-expanded");
   };
+
+  const { authToken } = useAuth();
+  
+  const var_searchText = useRef();
+
+  const handleSearchClick = async (e) => {
+    e.preventDefault();
+    try {
+      const responseSearch = await axios.get(
+        `https://arjasa-care-api.herokuapp.com/api/v1/pelanggan`,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`
+          }
+        }
+      )
+      console.log(responseSearch)
+    } catch (err) {
+      console.log(`${authToken}`);
+      alert(err.error);
+      console.log(err);
+    }
+  }
 
 
   return (
@@ -34,6 +59,13 @@ const Search = () => {
                 placeholder="Cari Produk..."
                 aria-label="Search..."
                 name="nama_query"
+                ref={var_searchText}
+                onClick={handleSearchClick}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    handleSearchClick();
+                  }
+                }}
               />
             </div>
           </div>
