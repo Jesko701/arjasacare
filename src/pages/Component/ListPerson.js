@@ -1,7 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ListPerson = (props) => {
+  const navigate = useNavigate()
+
+  const handleDetailClick = (id) => {
+    navigate(`/detail/${id}`);
+  }
+
   return (
     <>
       <div className="card mb-4" id="list-produk">
@@ -9,16 +16,25 @@ const ListPerson = (props) => {
           <h3 className="card-title">List Pelanggan</h3>
           <div className="table-responsive text-nowrap">
             <table className="table table-striped">
-              <tbody className="table-border-bottom-0">
+              <thead>
                 <tr>
-                  <td>
-                    <i className="fab fa-angular fa-lg text-danger me-3"></i>
-                    <strong>Nomor</strong>
-                  </td>
-                  <td>Nama</td>
-                  <td>Aksi</td>
+                  <th>Nomor</th>
+                  <th>Nama</th>
+                  <th>Aksi</th>
                 </tr>
-                
+              </thead>
+              <tbody className="table-border-bottom-0">
+                {props.pelanggan.map((item, index) => (
+                  <tr key={item.id}>
+                    <td>{index + 1}</td>
+                    <td>{item.nama}</td>
+                    <td>
+                      <button className="btn btn-info" onClick={() => {
+                        handleDetailClick(item.id);
+                      }}>Detail</button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

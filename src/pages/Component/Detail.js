@@ -1,8 +1,7 @@
-import axios from "axios";
 import { useEffect as UseEffect, useState as UseState } from "react";
 import { CSVLink } from "react-csv";
 
-const detail = (props) => {
+const detail = ({data}) => {
   const kopCSV = [
     { label: "Nama Panjang", key: "fullname" },
     { label: "Nomor HP", key: "nomor_hp" },
@@ -25,36 +24,11 @@ const detail = (props) => {
     },
   ]);
 
-  const fetchDataTransaksi = async (e) => {
-    try {
-      const getDataFromAPI = await axios.get(``);
-      console.log(getDataFromAPI);
-      setDetail(getDataFromAPI);
-    } catch (msg) {
-      console.log(msg.error());
-    }
-  };
-
-  const fetchDataPelanggan = async (e) => {
-    try {
-      const getDataFromAPI = await axios.get(``);
-      setDetail(getDetail.concat(getDataFromAPI));
-    } catch (error) {
-      alert(error.message);
-      console.log(error);
-    }
-  };
-
   const csvReport = {
     data: getDetail,
     headers: kopCSV,
     filename: "Detail_Pelanggan.csv",
   };
-
-  UseEffect(() => {
-    fetchDataTransaksi();
-    fetchDataPelanggan();
-  }, []);
 
   return (
     <>
@@ -65,19 +39,19 @@ const detail = (props) => {
           </h4>
           <div class="card mb-4" id="list-produk">
             <div class="card-body">
-              <h3 class="card-title">Nama: {props.nama}</h3>
+              <h3 class="card-title">Nama: {data.nama}</h3>
               <div class="row">
                 <div class="col">
-                  <b>Alamat: {props.alamat}</b>
+                  <b>Alamat: {data.alamat}</b>
                   <div class="mb-3 row" />
-                  <b>No Telepon: {props.noTelp}</b>
+                  <b>No Telepon: {data.nomor_hp}</b>
                   <div class="mb-3 row" />
-                  <b>Tanggal Input: {props.tglInput}</b>
+                  <b>Tanggal Input: {data.created_at}</b>
                   <div class="mb-3 row" />
                 </div>
                 <div class="col">
                   <b>Tanda Tangan: </b>
-                  <img src={props.tanda_tangan}></img>
+                  <a href={data.tanda_tangan} className="btn btn-warning">Lihat</a>
                 </div>
               </div>
               <button

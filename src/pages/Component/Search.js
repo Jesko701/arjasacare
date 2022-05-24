@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useRef, useState } from "react";
 import { useAuth } from "../../Config/Auth";
 
-const Search = () => {
+const Search = (props) => {
   const [isProfileClicked, setIsProfileClicked] = useState(false);
 
   const openDashboard = () => {
@@ -14,23 +14,8 @@ const Search = () => {
 
   const var_searchText = useRef();
 
-  const handleSearchClick = async (e) => {
-    e.preventDefault();
-    try {
-      const responseSearch = await axios.get(
-        `https://arjasa-care-api.herokuapp.com/api/v1/pelanggan`,
-        {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
-        }
-      );
-      console.log(responseSearch);
-    } catch (err) {
-      console.log(`${authToken}`);
-      alert(err.error);
-      console.log(err);
-    }
+  const handleSearchClick = (e) => {
+    props.handleSearch(e.target.value);
   };
 
   return (
@@ -58,13 +43,13 @@ const Search = () => {
                 autoFocus
                 type="text"
                 className="form-control border-0 shadow-none"
-                placeholder="Cari Produk..."
+                placeholder="Cari Pelanggan..."
                 aria-label="Search..."
                 name="nama_query"
                 ref={var_searchText}
                 onKeyPress={(e) => {
                   if (e.key === "Enter") {
-                    handleSearchClick();
+                    handleSearchClick(e);
                   }
                 }}
               />

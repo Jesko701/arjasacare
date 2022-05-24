@@ -4,7 +4,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import TambahKaryawan from "./pages/addKaryawan";
 import TambahPembeli from "./pages/addPembeli";
-import DetailPelanggan from "./pages/detailPelanggan"
+import DetailPelanggan from "./pages/DetailPelanggan"
 import TambahTransaksi from "./pages/tambahTransaksi";
 import { useState } from "react";
 import { AuthContext } from "./Config/Auth";
@@ -31,7 +31,7 @@ function App() {
           <Route path="/login" element= {<RestrictedRoute><Login/></RestrictedRoute>}/>
           <Route path="/tambahKaryawan" element = {<PrivateRoute><Home /><TambahKaryawan/></PrivateRoute>}/>
           <Route path="/RegPelanggan" element = {<PrivateRoute><TambahPembeli/></PrivateRoute>}/>
-          <Route path="/detail" element = {<PrivateRoute><DetailPelanggan/></PrivateRoute>}/>
+          <Route path="/detail/:id" element = {<PrivateRoute><DetailPelanggan/></PrivateRoute>}/>
           <Route path="/transaksi" element = {<PrivateRoute><TambahTransaksi/></PrivateRoute>}></Route>
           <Route path="/daftarTransaksi" element = {<PrivateRoute><DaftarTransaksi/></PrivateRoute>}></Route>
         </Routes>

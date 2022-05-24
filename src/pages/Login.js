@@ -2,10 +2,11 @@ import { useNavigate } from "react-router";
 import React, { useState, useRef } from "react";
 import axios from "axios";
 import { useAuth } from "../Config/Auth";
-
+import Spinner from "./Component/Spinner";
 
 const Login = () => {
   const [isSpin, setIsSpin] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
   const navigate = useNavigate();
   const { setAndGetTokens } = useAuth();
 
@@ -14,25 +15,34 @@ const Login = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const response = var_username.current.value + " " + var_pw.current.value;
-    // console.log(var_username.current.value);
-    // console.log(var_pw.current.value);
+
     try {
+      setIsSpin(true);
       const login = await axios.post(
         `https://arjasa-care-api.herokuapp.com/api/v1/login`,
         {
-          username: 'admin_arjasa',
-          password: 'rahasia123'
+          username: var_username.current.value,
+          password: var_pw.current.value,
         }
       );
       console.log(login.data.data.token);
       setAndGetTokens(login.data.data.token);
       setIsSpin(true);
       navigate("/home", { replace: true });
-    } catch (msg) {
-      alert("Gagal Login " + msg.error)
-      console.log(msg);
+    } catch (err) {
+      setErrMsg(err.response.data.message);
     }
+    setIsSpin(false);
+  };
+
+  const showFeedback = () => {
+    if (isSpin) return <Spinner />;
+    else if (errMsg != "")
+      return (
+        <div className={`alert alert-danger text-center`} role="alert">
+          {errMsg}
+        </div>
+      );
   };
   return (
     <>
@@ -49,6 +59,7 @@ const Login = () => {
                 </div>
                 <h4 class="mb-2">Selamat datang di Arjasa Care!</h4>
                 <p class="mb-4">Silahkan login terlebih dahulu</p>
+                {showFeedback()}
                 <form
                   id="formAuthentication"
                   class="mb-3"
@@ -95,14 +106,6 @@ const Login = () => {
                       Log-in
                     </button>
                   </div>
-                  {isSpin && (
-                    <div className="d-flex justify-content-center">
-                      <div
-                        className="spinner-border text-primary mb-4"
-                        role="status"
-                      ></div>
-                    </div>
-                  )}
                 </form>
               </div>
             </div>

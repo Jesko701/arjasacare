@@ -1,7 +1,29 @@
+import React, { useState, useEffect} from "react";
 import Dashboard from "./Component/Dashboard";
 import Detail from "./Component/Detail";
+import { useAuth } from "../Config/Auth";
+import {useParams} from "react-router-dom";
+import axios from "axios";
 
-const detailPelanggan = () => {
+const DetailPelanggan = () => {
+  const [dataPelanggan, setDataPelanggan] = useState({});
+
+  const { authToken } = useAuth();
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`https://arjasa-care-api.herokuapp.com/api/v1/pelanggan/${id}`, 
+          {headers: { Authorization: `Bearer ${authToken}` }}
+        );
+        setDataPelanggan(response.data.data);
+      } catch (err) {}
+    }
+    fetchData();
+  }, []);
+
   const openDashboard = () => {
     const html = document.getElementById("html");
     html.classList.add("layout-menu-expanded");
@@ -19,7 +41,7 @@ const detailPelanggan = () => {
             </div>
             <div className="content-wrapper">
               <div className="container-xxl flex-grow-1 container-p-y">
-                <Detail />
+                <Detail data={dataPelanggan}/>
               </div>
               <div className="content-backdrop fade"></div>
             </div>
@@ -31,4 +53,4 @@ const detailPelanggan = () => {
   );
 };
 
-export default detailPelanggan;
+export default DetailPelanggan;

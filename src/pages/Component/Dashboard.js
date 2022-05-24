@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocation, NavLink } from "react-router-dom";
+import { useAuth } from "../../Config/Auth";
 
 const Dashboard = () => {
   const pathName = useLocation().pathname;
@@ -13,6 +14,15 @@ const Dashboard = () => {
   const closeDashboard = () => {
     const html = document.getElementById("html");
     html.classList.remove("layout-menu-expanded");
+  };
+
+  const { setAndGetTokens } = useAuth();
+
+  const logoutHandler = (e) => {
+    if (window.confirm("Apakah anda yakin ingin logout?")) {
+      setAndGetTokens();
+      localStorage.clear();
+    }
   };
   return (
     <>
@@ -43,7 +53,7 @@ const Dashboard = () => {
           </li>
           <li className={`menu-item ${menuActive.produk ? "active" : ""}`}>
             <NavLink to="/home" className="menu-link">
-              <i className="menu-icon tf-icons bx bxs-zap"></i>
+              <i className="menu-icon tf-icons bx bxs-group"></i>
               <div>List Pelanggan</div>
             </NavLink>
           </li>
@@ -53,7 +63,7 @@ const Dashboard = () => {
             }`}
           >
             <NavLink to="/RegPelanggan" className="menu-link">
-              <i className="menu-icon tf-icons bx bx-layer-plus"></i>
+              <i className="menu-icon tf-icons bx bx-user-plus"></i>
               <div>Form Tambah Pelanggan</div>
             </NavLink>
           </li>
@@ -63,7 +73,7 @@ const Dashboard = () => {
           </li>
           <li className={`menu-item ${menuActive.profile ? "active" : ""}`}>
             <NavLink to="/profile" className="menu-link">
-              <i className="menu-icon tf-icons bx bxs-book-content"></i>
+              <i className="menu-icon tf-icons bx bxs-user"></i>
               <div data-i18n="User interface">Profil</div>
             </NavLink>
           </li>
@@ -79,16 +89,30 @@ const Dashboard = () => {
             <span className="menu-header-text">Transaksi</span>
           </li>
           <li
-            className={`menu-item ${menuActive.daftarTransaksi ? "active" : ""}`}
+            className={`menu-item ${
+              menuActive.daftarTransaksi ? "active" : ""
+            }`}
           >
             <NavLink to="/daftarTransaksi" className="menu-link">
-              <i className="menu-icon tf-icons bx bxs-file-plus"></i>
+              <i className="menu-icon tf-icons bx bxs-book-alt"></i>
               <div data-i18n="Support">Daftar Transaksi</div>
             </NavLink>
           </li>
+          <li className="menu-header small text-uppercase">
+            <span className="menu-header-text">Logout</span>
+          </li>
+          <li className="menu-item">
+            <a
+              className="menu-link"
+              style={{ cursor: "pointer" }}
+              onClick={logoutHandler}
+            >
+              <i className="menu-icon tf-icons bx bx-power-off"></i>
+              <div data-i18n="Support">Logout</div>
+            </a>
+          </li>
         </ul>
       </aside>
-      
     </>
   );
 };
