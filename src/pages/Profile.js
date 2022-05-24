@@ -1,7 +1,15 @@
 import Dashboard from "./Component/Dashboard";
 import ProfileKaryawan from "./Component/ProfileKaryawan";
+import { useEffect, useState } from "react";
 
 const Profile = () => {
+  const [profileKaryawan, setProfileKaryawan] = useState({})
+
+  useEffect(() => {
+    const profile = JSON.parse(localStorage.getItem("profile"));
+    setProfileKaryawan(profile);
+  }, []);
+
   const openDashboard = () => {
     const html = document.getElementById("html");
     html.classList.add("layout-menu-expanded");
@@ -23,7 +31,7 @@ const Profile = () => {
                   <span className="text-muted fw-light">Pembeli /</span> Tambah
                   Pelanggan
                 </h4>
-                <ProfileKaryawan />
+                <ProfileKaryawan profile={profileKaryawan}/>
               </div>
               <div className="content-backdrop fade"></div>
             </div>

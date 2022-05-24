@@ -1,4 +1,12 @@
-const ProfileKaryawan = (props) => {
+const ProfileKaryawan = ({profile}) => {
+
+  const checkKaryawan = (isKaryawan) => {
+    if(isKaryawan) return "Admin";
+    return "Karyawan";
+  }
+
+  const statusKaryawan = checkKaryawan(profile.is_karyawan);
+
   return (
     <>
       <div class="card col-md-12">
@@ -7,7 +15,7 @@ const ProfileKaryawan = (props) => {
           <div class="d-flex mb-3">
             <div class="flex-grow-1 row">
               <div class="col-9 mb-sm-0 mb-2">
-                <h6 class="mb-0">Nama : {}</h6>
+                <h6 class="mb-0">Nama : {`${profile.nama}`}</h6>
               </div>
             </div>
           </div>
@@ -15,7 +23,7 @@ const ProfileKaryawan = (props) => {
             
             <div class="flex-grow-1 row">
               <div class="col-9 mb-sm-0 mb-2">
-                <h6 class="mb-0">Username : {}</h6>
+                <h6 class="mb-0">Username : {`${profile.username}`}</h6>
               </div>
               
             </div>
@@ -24,7 +32,7 @@ const ProfileKaryawan = (props) => {
             
             <div class="flex-grow-1 row">
               <div class="col-9 mb-sm-0 mb-2">
-                <h6 class="mb-0">Karyawan atau Admin? : {}</h6>
+                <h6 class="mb-0">Status : {`${statusKaryawan}`}</h6>
               </div>
               <div class="col-3 text-end">
                 
