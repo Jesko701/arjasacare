@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { CSVLink } from "react-csv";
+
 
 const ListTransaksiKaryawan = (props) => {
   const headers = [
     { label: "ID Transaksi", key: "id" },
-    { label: "Waktu Transaksi", key: "waktu_transaksi" },
+    { label: "Waktu Transaksi", key: "created_at" },
     { label: "Keluhan", key: "keluhan" },
     { label: "Saran", key: "saran" },
     { label: "Nama Obat", key: "nama_obat" },
