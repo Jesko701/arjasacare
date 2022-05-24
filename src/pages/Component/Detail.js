@@ -53,12 +53,6 @@ const detail = ({ data }) => {
           </div>
           <button
             type="button"
-            className="btn rounded-pill btn-outline-info mr-3"
-          >
-            Ubah
-          </button>
-          <button
-            type="button"
             className="btn rounded-pill btn-outline-danger mr-3"
           >
             Hapus
