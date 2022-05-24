@@ -19,11 +19,6 @@ const Home = () => {
   const keyword = searchParams.get("keyword") || "";
   const page = searchParams.get("page") || 1;
 
-  useEffect(() => {
-    const profile = JSON.parse(localStorage.getItem("profile"));
-    console.log(profile);
-  }, []);
-
   const getPelanggan = useCallback(async (page, keyword) => {
     setIsLoading(true);
     let url = `https://arjasa-care-api.herokuapp.com/api/v1/pelanggan?page=${page}`;
