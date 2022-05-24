@@ -47,13 +47,11 @@ const Home = () => {
         }))
       );
 
-
       setData({
         currentPage: response.data.data.currentPage,
         totalPage: response.data.data.totalPage,
         totalData: response.data.data.totalData,
       });
-
     } catch (err) {}
 
     setIsLoading(false);
@@ -68,7 +66,7 @@ const Home = () => {
     getPelanggan(page, keywordInp);
   };
 
-  const movePage = () => {
+  const movePage = (page) => {
     if (keyword == "") setSearchParams({ page });
     else setSearchParams({ page, keyword });
 
@@ -92,8 +90,8 @@ const Home = () => {
                   <>
                     <ListPerson pelanggan={pelanggan} />
                     <Pagination
-                      currentPage={parseInt(data.currentPage)}
-                      totalPages={data.totalPages}
+                      currentPage={data.currentPage}
+                      totalPages={data.totalPage}
                       itemsPerPage={10}
                       onChangePage={movePage}
                     />
