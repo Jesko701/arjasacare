@@ -28,7 +28,7 @@ const Login = () => {
       console.log(login.data.data.token);
       setAndGetTokens(login.data.data.token);
       setIsSpin(true);
-      navigate("/home", { replace: true });
+      navigate("/", { replace: true });
     } catch (msg) {
       alert("Gagal Login " + msg.error)
       console.log(msg);

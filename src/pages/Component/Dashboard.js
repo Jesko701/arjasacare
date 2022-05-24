@@ -41,7 +41,7 @@ const Dashboard = () => {
             <span className="menu-header-text">Produk</span>
           </li>
           <li className={`menu-item ${menuActive.produk ? "active" : ""}`}>
-            <NavLink to="/home" className="menu-link">
+            <NavLink to="/" className="menu-link">
               <i className="menu-icon tf-icons bx bxs-zap"></i>
               <div>List Pelanggan</div>
             </NavLink>
@@ -71,8 +71,20 @@ const Dashboard = () => {
           >
             <NavLink to="/tambahKaryawan" className="menu-link">
               <i className="menu-icon tf-icons bx bxs-file-plus"></i>
-              <div data-i18n="Support">Tambah Karyawan!</div>
+              <div data-i18n="Support">Tambah Karyawan</div>
             </NavLink>
+          </li>
+          
+          <li className="menu-header small text-uppercase">
+            <span className="menu-header-text">Karyawan</span>
+          </li>
+          <li
+            className={`menu-item ${menuActive.tambahKaryawan ? "active" : ""}`}
+          >
+            <div className="menu-link" >
+              <i className="menu-icon tf-icons bx bxs-file-plus"></i>
+              <div data-i18n="Support">Logout</div>
+            </div>
           </li>
         </ul>
       </aside>

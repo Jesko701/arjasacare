@@ -26,7 +26,7 @@ function App() {
     <div className="app">
       <Router>
         <Routes>
-          <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
+          <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
           <Route path="/login" element= {<RestrictedRoute><Login/></RestrictedRoute>}/>
           <Route path="/tambahKaryawan" element = {<PrivateRoute><Home /><TambahKaryawan/></PrivateRoute>}/>
           <Route path="/RegPelanggan" element = {<PrivateRoute><TambahPembeli/></PrivateRoute>}/>
