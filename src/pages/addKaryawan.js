@@ -6,6 +6,7 @@ import Dashboard from "./Component/Dashboard";
 const AddKaryawan = () => {
   const navigate = useNavigate();
   useEffect(() => {
+    document.title = "Arjasa Care | Tambah Karyawan";
     const { is_karyawan } = JSON.parse(localStorage.getItem("profile"));
     if (is_karyawan === "true") navigate(-1);
   }, []);

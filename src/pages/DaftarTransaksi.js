@@ -18,6 +18,7 @@ const DaftarTransaksi = () => {
   const search = useRef();
 
   const getTransaksi = useCallback(async (keyword) => {
+    document.title = "Arjasa Care | List Transaksi";
     setIsLoading(true);
     let url = "https://arjasa-care-api.herokuapp.com/api/v1/transaksi";
     if (keyword !== "") url += `?keyword=${keyword}`;
@@ -68,8 +69,8 @@ const DaftarTransaksi = () => {
             <div className="content-wrapper">
               <div className="container-xxl flex-grow-1 container-p-y">
                 <h4 className="fw-bold py-3 mb-4">
-                  <span className="text-muted fw-light">Pelanggan /</span>{" "}
-                  Daftar Pelanggan
+                  <span className="text-muted fw-light">Transaksi /</span>{" "}
+                  Daftar Transaksi
                 </h4>
                 <div className="col-5 mx-auto">
                   <div className="card mb-4">

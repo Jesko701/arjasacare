@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../../Config/Auth";
 import Spinner from "./Spinner";
@@ -12,6 +13,7 @@ const FormKaryawan = () => {
   const [errNama, setErrNama] = useState("");
   const [errUsername, setErrUsername] = useState("");
   const [errPassword, setErrPassword] = useState("");
+  const navigate = useNavigate();
 
   const [hideBox, setHideBox] = useState(true);
 
@@ -52,6 +54,7 @@ const FormKaryawan = () => {
         }
       );
       alert("Data berhasil diinput");
+      navigate("/", { replace: true });
     } catch (error) {
       const response = error.response.data?.data;
       if (response.username) setErrUsername(response.username[0]);

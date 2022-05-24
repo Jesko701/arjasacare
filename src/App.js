@@ -1,5 +1,10 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import AddKaryawan from "./pages/AddKaryawan";
@@ -43,6 +48,7 @@ function App() {
                   </PrivateRoute>
                 }
               />
+              <Route path="/home" element={<Navigate to="/" />} />
               <Route
                 path="/login"
                 element={
@@ -59,7 +65,7 @@ function App() {
                   </PrivateRoute>
                 }
               />
-              
+
               <Route
                 path="/tambahKaryawan"
                 element={

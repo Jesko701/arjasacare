@@ -1,7 +1,11 @@
+import React, { useEffect } from "react";
 import Dashboard from "./Component/Dashboard";
 import FormTransaksi from "./Component/FormTransaksi";
 
 const TambahTransaksi = () => {
+  useEffect(() => {
+    document.title = "Arjasa Care | Tambah Transaksi";
+  }, []);
   const openDashboard = () => {
     const html = document.getElementById("html");
     html.classList.add("layout-menu-expanded");

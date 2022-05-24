@@ -1,8 +1,11 @@
+import { useEffect, useStxate } from "react";
 import Dashboard from "./Component/Dashboard";
 import ProfileKaryawan from "./Component/ProfileKaryawan";
-import { useEffect, useState } from "react";
 
 const Profile = () => {
+  useEffect(() => {
+    document.title = "Arjasa Care | Profil Karyawan";
+  },[])
   const profileKaryawan = JSON.parse(localStorage.getItem("profile"));
 
   const openDashboard = () => {

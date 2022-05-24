@@ -16,6 +16,7 @@ const DetailPelanggan = () => {
   const { id } = useParams();
 
   useEffect(() => {
+    document.title = "Arjasa Care | Detail Pelanggan";
     const fetchData = async () => {
       setIsLoading(true);
       try {

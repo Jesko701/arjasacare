@@ -20,6 +20,7 @@ const Home = () => {
   const page = searchParams.get("page") || 1;
 
   const getPelanggan = useCallback(async (page, keyword) => {
+    document.title = "Arjasa Care | Home";
     setIsLoading(true);
     let url = `https://arjasa-care-api.herokuapp.com/api/v1/pelanggan?page=${page}`;
     if (keyword !== "") url += `&keyword=${keyword}`;
