@@ -1,12 +1,15 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Dashboard from "./Component/Dashboard";
 import Detail from "./Component/Detail";
 import { useAuth } from "../Config/Auth";
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
+import Spinner from "./Component/Spinner";
 import axios from "axios";
+import ListTransaksiKaryawan from "./Component/ListTransaksiKaryawan";
 
 const DetailPelanggan = () => {
   const [dataPelanggan, setDataPelanggan] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const { authToken } = useAuth();
 
@@ -14,13 +17,16 @@ const DetailPelanggan = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
-        const response = await axios.get(`https://arjasa-care-api.herokuapp.com/api/v1/pelanggan/${id}`, 
-          {headers: { Authorization: `Bearer ${authToken}` }}
+        const response = await axios.get(
+          `https://arjasa-care-api.herokuapp.com/api/v1/pelanggan/${id}`,
+          { headers: { Authorization: `Bearer ${authToken}` } }
         );
         setDataPelanggan(response.data.data);
       } catch (err) {}
-    }
+      setIsLoading(false);
+    };
     fetchData();
   }, []);
 
@@ -41,7 +47,17 @@ const DetailPelanggan = () => {
             </div>
             <div className="content-wrapper">
               <div className="container-xxl flex-grow-1 container-p-y">
-                <Detail data={dataPelanggan}/>
+                {!isLoading ? (
+                  <>
+                    <Detail data={dataPelanggan} />
+                    <ListTransaksiKaryawan
+                      data={dataPelanggan.transaksi || []}
+                      nama={dataPelanggan.nama}
+                    />
+                  </>
+                ) : (
+                  <Spinner />
+                )}
               </div>
               <div className="content-backdrop fade"></div>
             </div>
