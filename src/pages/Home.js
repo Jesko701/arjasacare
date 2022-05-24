@@ -7,6 +7,7 @@ import { useAuth } from "../Config/Auth";
 import Spinner from "./Component/Spinner";
 import Pagination from "./Component/Pagination";
 import axios from "axios";
+import { useProfileContext } from "../Config/ProfileKaryawan";
 
 const Home = () => {
   const { authToken } = useAuth();
@@ -18,6 +19,11 @@ const Home = () => {
 
   const keyword = searchParams.get("keyword") || "";
   const page = searchParams.get("page") || 1;
+
+  useEffect(() => {
+    const profile = JSON.parse(localStorage.getItem("profile"));
+    console.log(profile);
+  }, []);
 
   const getPelanggan = useCallback(async (page, keyword) => {
     setIsLoading(true);
@@ -34,6 +40,7 @@ const Home = () => {
       });
       const arr = response.data.data.data;
       console.log(arr);
+      console.log(authToken);
       setPelanggan(
         arr.map((item) => ({
           id: item.id,

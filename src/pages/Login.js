@@ -3,12 +3,14 @@ import React, { useState, useRef } from "react";
 import axios from "axios";
 import { useAuth } from "../Config/Auth";
 import Spinner from "./Component/Spinner";
+import { useProfileContext } from "../Config/ProfileKaryawan";
 
 const Login = () => {
   const [isSpin, setIsSpin] = useState(false);
   const [errMsg, setErrMsg] = useState("");
   const navigate = useNavigate();
   const { setAndGetTokens } = useAuth();
+  const { setAndGetProfile } = useProfileContext();
 
   const var_username = useRef();
   const var_pw = useRef();
@@ -26,9 +28,15 @@ const Login = () => {
         }
       );
       console.log(login.data.data.token);
+      console.log(login.data.data);
       setAndGetTokens(login.data.data.token);
+      setAndGetProfile({
+        nama: `${login.data.data.karyawan.fullname}`,
+        username: `${login.data.data.karyawan.username}`,
+        is_karyawan: `${login.data.data.karyawan.is_karyawan}`
+      });
       setIsSpin(true);
-      navigate("/home", { replace: true });
+      navigate("/", { replace: true });
     } catch (err) {
       setErrMsg(err.response.data.message);
     }

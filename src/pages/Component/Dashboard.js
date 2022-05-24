@@ -1,11 +1,12 @@
 import React from "react";
 import { useLocation, NavLink } from "react-router-dom";
 import { useAuth } from "../../Config/Auth";
+import { useProfileContext } from "../../Config/ProfileKaryawan";
 
 const Dashboard = () => {
   const pathName = useLocation().pathname;
   const menuActive = {
-    produk: pathName == "/home",
+    produk: pathName == "/",
     tambahPelanggan: pathName == "/RegPelanggan",
     tambahKaryawan: pathName == "/tambahKaryawan",
     daftarTransaksi: pathName == "/daftarTransaksi",
@@ -17,10 +18,12 @@ const Dashboard = () => {
   };
 
   const { setAndGetTokens } = useAuth();
+  const { setAndGetProfile} = useProfileContext();
 
   const logoutHandler = (e) => {
     if (window.confirm("Apakah anda yakin ingin logout?")) {
       setAndGetTokens();
+      setAndGetProfile();
       localStorage.clear();
     }
   };
@@ -52,7 +55,7 @@ const Dashboard = () => {
             <span className="menu-header-text">Produk</span>
           </li>
           <li className={`menu-item ${menuActive.produk ? "active" : ""}`}>
-            <NavLink to="/home" className="menu-link">
+            <NavLink to="/" className="menu-link">
               <i className="menu-icon tf-icons bx bxs-group"></i>
               <div>List Pelanggan</div>
             </NavLink>
