@@ -1,7 +1,7 @@
 import FormKaryawan from "./Component/FormKaryawan";
 import Dashboard from "./Component/Dashboard";
 
-const addKaryawan = () => {
+const AddKaryawan = () => {
   const openDashboard = () => {
     const html = document.getElementById("html");
     html.classList.add("layout-menu-expanded");
@@ -35,4 +35,4 @@ const addKaryawan = () => {
   );
 };
 
-export default addKaryawan;
+export default AddKaryawan;

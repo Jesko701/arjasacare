@@ -1,7 +1,7 @@
-import FormPembeli from "./Component/FormPembeli";
 import Dashboard from "./Component/Dashboard";
+import ProfileKaryawan from "./Component/ProfileKaryawan";
 
-const AddPembeli = () => {
+const Profile = () => {
   const openDashboard = () => {
     const html = document.getElementById("html");
     html.classList.add("layout-menu-expanded");
@@ -23,7 +23,7 @@ const AddPembeli = () => {
                   <span className="text-muted fw-light">Pembeli /</span> Tambah
                   Pelanggan
                 </h4>
-                <FormPembeli />
+                <ProfileKaryawan />
               </div>
               <div className="content-backdrop fade"></div>
             </div>
@@ -35,4 +35,4 @@ const AddPembeli = () => {
   );
 };
 
-export default AddPembeli;
+export default Profile;

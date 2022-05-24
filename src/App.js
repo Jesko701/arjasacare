@@ -2,8 +2,9 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-import TambahKaryawan from "./pages/addKaryawan";
-import TambahPembeli from "./pages/addPembeli";
+import TambahKaryawan from "./pages/AddKaryawan";
+import TambahPembeli from "./pages/AddPembeli";
+import Profile from "./pages/Profile";
 import DetailPelanggan from "./pages/DetailPelanggan";
 import TambahTransaksi from "./pages/tambahTransaksi";
 import { useState } from "react";
@@ -50,6 +51,15 @@ function App() {
                   </RestrictedRoute>
                 }
               />
+              <Route
+                path="/profile"
+                element={
+                  <PrivateRoute>
+                    <Profile />
+                  </PrivateRoute>
+                }
+              />
+              
               <Route
                 path="/tambahKaryawan"
                 element={
