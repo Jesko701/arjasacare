@@ -9,6 +9,7 @@ import TambahTransaksi from "./pages/tambahTransaksi";
 import { useState } from "react";
 import { AuthContext } from "./Config/Auth";
 import { PrivateRoute, RestrictedRoute } from "../src/Config/PrivateRoute";
+import DaftarTransaksi from "./pages/DaftarTransaksi";
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
           <Route path="/RegPelanggan" element = {<PrivateRoute><TambahPembeli/></PrivateRoute>}/>
           <Route path="/detail" element = {<PrivateRoute><DetailPelanggan/></PrivateRoute>}/>
           <Route path="/transaksi" element = {<PrivateRoute><TambahTransaksi/></PrivateRoute>}></Route>
+          <Route path="/daftarTransaksi" element = {<PrivateRoute><DaftarTransaksi/></PrivateRoute>}></Route>
         </Routes>
       </Router>
     </div>

@@ -1,11 +1,14 @@
 import axios from "axios";
 import React, { useRef, useState } from "react";
+import { useAuth } from "../../Config/Auth";
+import Spinner from "./Spinner";
 
 const FormPembeli = () => {
   const inputNama = useRef(null);
   const inputAlamat = useRef(null);
   const inputGambarTTD = useRef(null);
   const inputNomorHP = useRef(null);
+  const { authToken } = useAuth();
 
   const [getDataPembeli, setDataPembeli] = useState({
     nama: "",
@@ -13,6 +16,10 @@ const FormPembeli = () => {
     alamat: null,
     tanda_tangan: null,
   });
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [noTelpMessage, setNoTelpMessage] = useState("");
+  const [ttdMsg, setTtdMsg] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +30,7 @@ const FormPembeli = () => {
     bodyFormData.append("nomor_hp", getDataPembeli.nomor_hp);
     bodyFormData.append("alamat", getDataPembeli.alamat);
     bodyFormData.append("tanda_tangan", getDataPembeli.tanda_tangan);
-    console.log(getDataPembeli);
+    setIsLoading(true);
     try {
       const insert = await axios({
         method: "post",
@@ -31,16 +38,17 @@ const FormPembeli = () => {
         data: bodyFormData,
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization:
-            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC92MVwvbG9naW4iLCJpYXQiOjE2NTI3Nzg3MDcsImV4cCI6MTY1MzM4MzUwNywibmJmIjoxNjUyNzc4NzA3LCJqdGkiOiJoNVIwSkdhVnRFQzhyTWJNIiwic3ViIjoxNywicHJ2IjoiNWRhNWMzZTIwZTEzNzM3YjJlZmY2NjI1NjJmNjlkOTFkMDFlODllMyJ9.n_xOedfvNesN75Ku4770FGUJpfy4jKNULz2-G1lCME0",
+          Authorization: `Bearer ${authToken}`,
         },
       });
-      console.log(insert);
       alert("Data berhasil di-input");
-    } catch (msg) {
-      alert(msg.error);
-      console.log(msg.response.data);
+    } catch (error) {
+      const data = error.response.data.data;
+
+      if (data != null) setNoTelpMessage(data["nomor_hp"][0]);
+      else setTtdMsg(error.response.data.message);
     }
+    setIsLoading(false);
   };
 
   const addDataIntoUseState = () => {
@@ -54,6 +62,7 @@ const FormPembeli = () => {
 
   return (
     <>
+      {isLoading && <Spinner />}
       <div class="mx-auto">
         <div class="card mb-4">
           <h5 class="card-header">Form Pelanggan</h5>
@@ -86,7 +95,9 @@ const FormPembeli = () => {
                   </label>
                   <div class="col-md-12">
                     <input
-                      class="form-control"
+                      class={`form-control ${
+                        noTelpMessage !== "" && "invalid"
+                      }`}
                       type="number"
                       name="nomorHP"
                       placeholder="Nomor HP...."
@@ -94,6 +105,11 @@ const FormPembeli = () => {
                       ref={inputNomorHP}
                       required
                     />
+                    {noTelpMessage !== "" && (
+                      <div class="invalid-feedback d-block">
+                        {noTelpMessage}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -120,13 +136,16 @@ const FormPembeli = () => {
                     Masukkan gambar tanda-tangan{" "}
                   </label>
                   <input
-                    class="form-control"
+                    class={`form-control ${ttdMsg !== "" && "invalid"}`}
                     type="file"
                     id="formFile"
                     name="gambar"
                     accept="image/*"
                     ref={inputGambarTTD}
                   />
+                  {ttdMsg !== "" && (
+                    <div class="invalid-feedback d-block">{ttdMsg}</div>
+                  )}
                 </div>
               </div>
               <div className="mx-auto float-end">

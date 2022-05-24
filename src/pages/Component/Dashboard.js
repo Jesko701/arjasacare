@@ -7,6 +7,7 @@ const Dashboard = () => {
     produk: pathName == "/home",
     tambahPelanggan: pathName == "/RegPelanggan",
     tambahKaryawan: pathName == "/tambahKaryawan",
+    daftarTransaksi: pathName == "/daftarTransaksi",
     profile: pathName == "/profile",
   };
   const closeDashboard = () => {
@@ -63,7 +64,7 @@ const Dashboard = () => {
           <li className={`menu-item ${menuActive.profile ? "active" : ""}`}>
             <NavLink to="/profile" className="menu-link">
               <i className="menu-icon tf-icons bx bxs-book-content"></i>
-              <div data-i18n="User interface">Profile</div>
+              <div data-i18n="User interface">Profil</div>
             </NavLink>
           </li>
           <li
@@ -71,7 +72,18 @@ const Dashboard = () => {
           >
             <NavLink to="/tambahKaryawan" className="menu-link">
               <i className="menu-icon tf-icons bx bxs-file-plus"></i>
-              <div data-i18n="Support">Tambah Karyawan!</div>
+              <div data-i18n="Support">Tambah Karyawan</div>
+            </NavLink>
+          </li>
+          <li className="menu-header small text-uppercase">
+            <span className="menu-header-text">Transaksi</span>
+          </li>
+          <li
+            className={`menu-item ${menuActive.daftarTransaksi ? "active" : ""}`}
+          >
+            <NavLink to="/daftarTransaksi" className="menu-link">
+              <i className="menu-icon tf-icons bx bxs-file-plus"></i>
+              <div data-i18n="Support">Daftar Transaksi</div>
             </NavLink>
           </li>
         </ul>

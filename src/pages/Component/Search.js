@@ -4,14 +4,14 @@ import { useAuth } from "../../Config/Auth";
 
 const Search = () => {
   const [isProfileClicked, setIsProfileClicked] = useState(false);
-  
+
   const openDashboard = () => {
     const html = document.getElementById("html");
     html.classList.add("layout-menu-expanded");
   };
 
   const { authToken } = useAuth();
-  
+
   const var_searchText = useRef();
 
   const handleSearchClick = async (e) => {
@@ -21,18 +21,17 @@ const Search = () => {
         `https://arjasa-care-api.herokuapp.com/api/v1/pelanggan`,
         {
           headers: {
-            Authorization: `Bearer ${authToken}`
-          }
+            Authorization: `Bearer ${authToken}`,
+          },
         }
-      )
-      console.log(responseSearch)
+      );
+      console.log(responseSearch);
     } catch (err) {
       console.log(`${authToken}`);
       alert(err.error);
       console.log(err);
     }
-  }
-
+  };
 
   return (
     <>
@@ -51,7 +50,10 @@ const Search = () => {
         >
           <div className="navbar-nav align-items-center">
             <div className="nav-item d-flex align-items-center">
-              <i className="bx bx-search fs-4 lh-0"></i>
+              <i
+                className="bx bx-search fs-4 lh-0"
+                onClick={handleSearchClick}
+              ></i>
               <input
                 autoFocus
                 type="text"
@@ -60,7 +62,6 @@ const Search = () => {
                 aria-label="Search..."
                 name="nama_query"
                 ref={var_searchText}
-                onClick={handleSearchClick}
                 onKeyPress={(e) => {
                   if (e.key === "Enter") {
                     handleSearchClick();
