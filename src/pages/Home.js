@@ -83,7 +83,7 @@ const Home = () => {
                 </h4>
                 {!isLoading ? (
                   <>
-                    <ListPerson pelanggan={pelanggan} />
+                    <ListPerson pelanggan={pelanggan} page={page}/>
                     <Pagination
                       currentPage={data.currentPage}
                       totalPages={data.totalPage}

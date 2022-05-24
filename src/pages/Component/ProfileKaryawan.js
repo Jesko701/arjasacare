@@ -1,9 +1,8 @@
-const ProfileKaryawan = ({profile}) => {
-
+const ProfileKaryawan = ({ profile }) => {
   const checkKaryawan = (isKaryawan) => {
-    if(isKaryawan) return "Admin";
+    if (isKaryawan === "false") return "Admin";
     return "Karyawan";
-  }
+  };
 
   const statusKaryawan = checkKaryawan(profile.is_karyawan);
 
@@ -20,23 +19,18 @@ const ProfileKaryawan = ({profile}) => {
             </div>
           </div>
           <div class="d-flex mb-3">
-            
             <div class="flex-grow-1 row">
               <div class="col-9 mb-sm-0 mb-2">
                 <h6 class="mb-0">Username : {`${profile.username}`}</h6>
               </div>
-              
             </div>
           </div>
           <div class="d-flex">
-            
             <div class="flex-grow-1 row">
               <div class="col-9 mb-sm-0 mb-2">
                 <h6 class="mb-0">Status : {`${statusKaryawan}`}</h6>
               </div>
-              <div class="col-3 text-end">
-                
-              </div>
+              <div class="col-3 text-end"></div>
             </div>
           </div>
         </div>

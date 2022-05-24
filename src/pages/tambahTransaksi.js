@@ -1,6 +1,7 @@
 import Dashboard from "./Component/Dashboard";
-import TambahTransaksi from "./Component/FormTransaksi";
-const tambahTransaksi = () => {
+import FormTransaksi from "./Component/FormTransaksi";
+
+const TambahTransaksi = () => {
   const openDashboard = () => {
     const html = document.getElementById("html");
     html.classList.add("layout-menu-expanded");
@@ -22,7 +23,7 @@ const tambahTransaksi = () => {
                   <span className="text-muted fw-light">Transaksi /</span>{" "}
                   Tambah Transaksi
                 </h4>
-                <TambahTransaksi />
+                <FormTransaksi />
               </div>
               <div className="content-backdrop fade"></div>
             </div>
@@ -34,4 +35,4 @@ const tambahTransaksi = () => {
   );
 };
 
-export default tambahTransaksi;
+export default TambahTransaksi;

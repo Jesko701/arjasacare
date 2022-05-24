@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { CSVLink } from "react-csv";
 
 
@@ -49,7 +49,7 @@ const ListTransaksiKaryawan = (props) => {
             </table>
           </div>
           <div className="mx-auto float-end">
-            <CSVLink className="btn btn-success" {...csvReport}>
+            <CSVLink className="btn btn-success mt-3" {...csvReport}>
               Export CSV
             </CSVLink>
           </div>

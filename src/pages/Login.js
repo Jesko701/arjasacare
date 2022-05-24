@@ -8,12 +8,17 @@ import { useProfileContext } from "../Config/ProfileKaryawan";
 const Login = () => {
   const [isSpin, setIsSpin] = useState(false);
   const [errMsg, setErrMsg] = useState("");
+  const [hideBox, setHideBox] = useState(true);
   const navigate = useNavigate();
   const { setAndGetTokens } = useAuth();
   const { setAndGetProfile } = useProfileContext();
 
   const var_username = useRef();
   const var_pw = useRef();
+
+  const hideBoxOnClick = () => {
+    setHideBox(!hideBox);
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -33,7 +38,7 @@ const Login = () => {
       setAndGetProfile({
         nama: `${login.data.data.karyawan.fullname}`,
         username: `${login.data.data.karyawan.username}`,
-        is_karyawan: `${login.data.data.karyawan.is_karyawan}`
+        is_karyawan: `${login.data.data.karyawan.is_karyawan}`,
       });
       setIsSpin(true);
       navigate("/", { replace: true });
@@ -96,7 +101,7 @@ const Login = () => {
                     </div>
                     <div class="input-group input-group-merge">
                       <input
-                        type="password"
+                        type={hideBox ? "password" : "text"}
                         id="password"
                         class="form-control"
                         name="password"
@@ -105,7 +110,10 @@ const Login = () => {
                         ref={var_pw}
                       />
                       <span class="input-group-text cursor-pointer">
-                        <i class="bx bx-hide"></i>
+                        <i
+                          className={"bx bx-" + (hideBox ? "hide" : "show")}
+                          onClick={hideBoxOnClick}
+                        ></i>
                       </span>
                     </div>
                   </div>

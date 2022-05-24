@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, NavLink } from "react-router-dom";
 import { useAuth } from "../../Config/Auth";
 import { useProfileContext } from "../../Config/ProfileKaryawan";
@@ -17,8 +17,11 @@ const Dashboard = () => {
     html.classList.remove("layout-menu-expanded");
   };
 
+  const isKaryawan =
+    JSON.parse(localStorage.getItem("profile")).is_karyawan === "true";
+
   const { setAndGetTokens } = useAuth();
-  const { setAndGetProfile} = useProfileContext();
+  const { setAndGetProfile } = useProfileContext();
 
   const logoutHandler = (e) => {
     if (window.confirm("Apakah anda yakin ingin logout?")) {
@@ -60,6 +63,7 @@ const Dashboard = () => {
               <div>List Pelanggan</div>
             </NavLink>
           </li>
+
           <li
             className={`menu-item ${
               menuActive.tambahPelanggan ? "active" : ""
@@ -80,14 +84,20 @@ const Dashboard = () => {
               <div data-i18n="User interface">Profil</div>
             </NavLink>
           </li>
-          <li
-            className={`menu-item ${menuActive.tambahKaryawan ? "active" : ""}`}
-          >
-            <NavLink to="/tambahKaryawan" className="menu-link">
-              <i className="menu-icon tf-icons bx bxs-file-plus"></i>
-              <div data-i18n="Support">Tambah Karyawan</div>
-            </NavLink>
-          </li>
+          
+          {!isKaryawan && (
+            <li
+              className={`menu-item ${
+                menuActive.tambahKaryawan ? "active" : ""
+              }`}
+            >
+              <NavLink to="/tambahKaryawan" className="menu-link">
+                <i className="menu-icon tf-icons bx bxs-file-plus"></i>
+                <div data-i18n="Support">Tambah Karyawan</div>
+              </NavLink>
+            </li>
+          )}
+
           <li className="menu-header small text-uppercase">
             <span className="menu-header-text">Transaksi</span>
           </li>

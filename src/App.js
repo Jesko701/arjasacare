@@ -2,8 +2,8 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-import TambahKaryawan from "./pages/AddKaryawan";
-import TambahPembeli from "./pages/AddPembeli";
+import AddKaryawan from "./pages/AddKaryawan";
+import AddPembeli from "./pages/AddPembeli";
 import Profile from "./pages/Profile";
 import DetailPelanggan from "./pages/DetailPelanggan";
 import TambahTransaksi from "./pages/tambahTransaksi";
@@ -64,8 +64,7 @@ function App() {
                 path="/tambahKaryawan"
                 element={
                   <PrivateRoute>
-                    <Home />
-                    <TambahKaryawan />
+                    <AddKaryawan />
                   </PrivateRoute>
                 }
               />
@@ -73,7 +72,7 @@ function App() {
                 path="/RegPelanggan"
                 element={
                   <PrivateRoute>
-                    <TambahPembeli />
+                    <AddPembeli />
                   </PrivateRoute>
                 }
               />
@@ -86,7 +85,7 @@ function App() {
                 }
               />
               <Route
-                path="/transaksi"
+                path="/transaksi/:id"
                 element={
                   <PrivateRoute>
                     <TambahTransaksi />

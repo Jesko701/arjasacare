@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ListPerson = (props) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleDetailClick = (id) => {
     navigate(`/detail/${id}`);
-  }
+  };
 
   return (
     <>
@@ -26,12 +26,17 @@ const ListPerson = (props) => {
               <tbody className="table-border-bottom-0">
                 {props.pelanggan.map((item, index) => (
                   <tr key={item.id}>
-                    <td>{index + 1}</td>
+                    <td>{(props.page - 1) * 10 + (index + 1)}</td>
                     <td>{item.nama}</td>
                     <td>
-                      <button className="btn btn-info" onClick={() => {
-                        handleDetailClick(item.id);
-                      }}>Detail</button>
+                      <button
+                        className="btn btn-info"
+                        onClick={() => {
+                          handleDetailClick(item.id);
+                        }}
+                      >
+                        Detail
+                      </button>
                     </td>
                   </tr>
                 ))}

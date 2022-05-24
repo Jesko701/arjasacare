@@ -3,12 +3,7 @@ import ProfileKaryawan from "./Component/ProfileKaryawan";
 import { useEffect, useState } from "react";
 
 const Profile = () => {
-  const [profileKaryawan, setProfileKaryawan] = useState({})
-
-  useEffect(() => {
-    const profile = JSON.parse(localStorage.getItem("profile"));
-    setProfileKaryawan(profile);
-  }, []);
+  const profileKaryawan = JSON.parse(localStorage.getItem("profile"));
 
   const openDashboard = () => {
     const html = document.getElementById("html");
@@ -28,8 +23,7 @@ const Profile = () => {
             <div className="content-wrapper">
               <div className="container-xxl flex-grow-1 container-p-y">
                 <h4 className="fw-bold py-3 mb-4">
-                  <span className="text-muted fw-light">Pembeli /</span> Tambah
-                  Pelanggan
+                  <span className="text-muted fw-light">Karyawan /</span> Profil
                 </h4>
                 <ProfileKaryawan profile={profileKaryawan}/>
               </div>

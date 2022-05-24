@@ -1,55 +1,57 @@
-import { useRef as UseRef, useState as UseState } from "react";
+import React, { useRef, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useAuth } from "../../Config/Auth";
+import Spinner from "./Spinner";
 import axios from "axios";
 
-const formTransaksi = () => {
-  const inputObat = UseRef(null);
-  const inputAlergi = UseRef(null);
-  const inputKeluhan = UseRef(null);
-  const inputSaran = UseRef(null);
+const FormTransaksi = () => {
+  const inputObat = useRef();
+  const inputAlergi = useRef();
+  const inputKeluhan = useRef();
+  const inputSaran = useRef();
 
-  const[getData, setData] = UseState([{
-      obat: "",
-      alergi: "",
-      keluhan: "",
-      saran: ""
-  }]);
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { authToken } = useAuth();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmitTransaksi = async (e) => {
-      e.preventDefault();
-      handleInput();
+    e.preventDefault();
 
-      const bodyFormData = new FormData();
-      bodyFormData.append("obat", getData.obat);
-      bodyFormData.append("alergi", getData.alergi);
-      bodyFormData.append("keluhan", getData.keluhan);
-      bodyFormData.append("saran", getData.saran);
-      try {
-          const inputToDB = await axios({
-            method: "post",
-            url: `https://arjasa-care-api.herokuapp.com/api/v1/transaksi/`,
-            data: bodyFormData
-          });
-          console.log(inputToDB);
-      } catch (error) {
-          console.log(error.error);
-          alert(error.error);
-      }
+    try {
+      setIsLoading(true);
+      await axios.post(
+        "https://arjasa-care-api.herokuapp.com/api/v1/transaksi/" + id,
+        {
+          keluhan: inputKeluhan.current.value,
+          alergi: inputAlergi.current.value,
+          nama_obat: inputObat.current.value,
+          saran: inputSaran.current.value,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      setIsLoading(false);
+      alert("Data berhasil diinput");
+      navigate(`/detail/${id}`);
+    } catch (error) {
+      setIsLoading(false);
+      alert("Data gagal diinput " + error.response.message);
+    }
   };
 
-  const handleInput = () => {
-      let tmpData = getData;
-      tmpData['obat'] = inputObat.current.value;
-      tmpData['alergi'] = inputAlergi.current.value;
-      tmpData['keluhan'] = inputKeluhan.current.value;
-      tmpData['saran'] = inputSaran.current.value;
-      setData(tmpData);
-  }
   return (
     <>
       <div class="mx-auto">
+        {isLoading && <Spinner />}
         <form onSubmit={handleSubmitTransaksi}>
           <div class="card mb-4">
-            <h5 class="card-header">Form Tambah Karyawan</h5>
+            <h5 class="card-header">Form Tambah Transaksi</h5>
             <div class="card-body">
               <div class="mb-3 row">
                 <label for="html5-search-input" class="col-md-2 col-form-label">
@@ -126,4 +128,4 @@ const formTransaksi = () => {
   );
 };
 
-export default formTransaksi;
+export default FormTransaksi;

@@ -53,6 +53,7 @@ const DetailPelanggan = () => {
                     <ListTransaksiKaryawan
                       data={dataPelanggan.transaksi || []}
                       nama={dataPelanggan.nama}
+                      
                     />
                   </>
                 ) : (

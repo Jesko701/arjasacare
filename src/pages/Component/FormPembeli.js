@@ -30,6 +30,8 @@ const FormPembeli = () => {
     bodyFormData.append("nomor_hp", getDataPembeli.nomor_hp);
     bodyFormData.append("alamat", getDataPembeli.alamat);
     bodyFormData.append("tanda_tangan", getDataPembeli.tanda_tangan);
+    setNoTelpMessage("");
+    setTtdMsg("");
     setIsLoading(true);
     try {
       const insert = await axios({

@@ -1,7 +1,14 @@
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import FormKaryawan from "./Component/FormKaryawan";
 import Dashboard from "./Component/Dashboard";
 
 const AddKaryawan = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const { is_karyawan } = JSON.parse(localStorage.getItem("profile"));
+    if (is_karyawan === "true") navigate(-1);
+  }, []);
   const openDashboard = () => {
     const html = document.getElementById("html");
     html.classList.add("layout-menu-expanded");
