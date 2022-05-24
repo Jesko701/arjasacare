@@ -7,7 +7,6 @@ import { useAuth } from "../Config/Auth";
 import Spinner from "./Component/Spinner";
 import Pagination from "./Component/Pagination";
 import axios from "axios";
-import { useProfileContext } from "../Config/ProfileKaryawan";
 
 const Home = () => {
   const { authToken } = useAuth();
