@@ -1,7 +1,26 @@
 import { useEffect as UseEffect, useState as UseState } from "react";
 import { CSVLink } from "react-csv";
+import axios from "axios";
+import { useAuth } from "../../Config/Auth";
+import { useNavigate } from "react-router";
 
-const detail = ({data}) => {
+const Detail = ({data}) => {
+  const { authToken } = useAuth();
+  const id = data.id;
+  const navigate = useNavigate();
+
+  const handleDeletePelanggan = () => {
+    const DeleteData = async () => {
+      try {
+        const response = await axios.delete(`https://arjasa-care-api.herokuapp.com/api/v1/pelanggan/${id}`, 
+          {headers: { Authorization: `Bearer ${authToken}` }}
+        );
+        navigate("/");
+      } catch (err) {}
+    }
+    DeleteData();
+  }
+  
   const kopCSV = [
     { label: "Nama Panjang", key: "fullname" },
     { label: "Nomor HP", key: "nomor_hp" },
@@ -63,6 +82,7 @@ const detail = ({data}) => {
               <button
                 type="button"
                 class="btn rounded-pill btn-outline-danger mr-3"
+                onClick={handleDeletePelanggan}
               >
                 Hapus
               </button>
@@ -128,4 +148,4 @@ const detail = ({data}) => {
   );
 };
 
-export default detail;
+export default Detail;
