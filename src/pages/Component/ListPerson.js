@@ -1,29 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ListPerson = (props) => {
-  const [getOrang, setOrang] = useState();
-  const [getFilteredName, setFilteredName] = useState();
+  const navigate = useNavigate()
 
-  const getDataFromAPI = async (e) => {
-    e.preventDefault();
-    try {
-      const getData = await axios.get(`https://arjasa-care-api.herokuapp.com/api/v1/pelanggan`);
-      setOrang(getData.response.data.data);
-      console.log(getOrang);
-    } catch (msg) {
-      console.error(msg.error);
-      alert("Data gagal di Load");
-    }
-  };
-
-  const handleDetailClick = () => {
-    
+  const handleDetailClick = (id) => {
+    navigate(`/detail/${id}`);
   }
-
-  useEffect(() => {
-    getDataFromAPI();
-  }, []);
 
   return (
     <>
@@ -32,39 +16,25 @@ const ListPerson = (props) => {
           <h3 className="card-title">List Pelanggan</h3>
           <div className="table-responsive text-nowrap">
             <table className="table table-striped">
-              <tbody className="table-border-bottom-0">
+              <thead>
                 <tr>
-                  <td>
-                    <i className="fab fa-angular fa-lg text-danger me-3"></i>
-                    <strong>Nomor</strong>
-                  </td>
-                  <td>Nama</td>
-                  <td>Aksi</td>
+                  <th>Nomor</th>
+                  <th>Nama</th>
+                  <th>Aksi</th>
                 </tr>
-                {/* Looping Map  */}
-                {getOrang &&
-                  getOrang.map((item, i) => {
-                    return (
-                      <>
-                        <tr>
-                          <td>
-                            <i className="fab fa-angular fa-lg text-danger me-3"></i>
-                            <strong>{i + 1}</strong>
-                          </td>
-                          <td>{item.nama}</td>
-                          <td>
-                            <button
-                              type="button"
-                              className="btn rounded-pill btn-outline-secondary mr-3"
-                              onClick={handleDetailClick}
-                            >
-                              Detail
-                            </button>
-                          </td>
-                        </tr>
-                      </>
-                    );
-                  })}
+              </thead>
+              <tbody className="table-border-bottom-0">
+                {props.pelanggan.map((item, index) => (
+                  <tr key={item.id}>
+                    <td>{index + 1}</td>
+                    <td>{item.nama}</td>
+                    <td>
+                      <button className="btn btn-info" onClick={() => {
+                        handleDetailClick(item.id);
+                      }}>Detail</button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

@@ -1,13 +1,22 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useRef, useState } from "react";
+import { useAuth } from "../../Config/Auth";
 
-const Search = () => {
+const Search = (props) => {
   const [isProfileClicked, setIsProfileClicked] = useState(false);
-  
+
   const openDashboard = () => {
     const html = document.getElementById("html");
     html.classList.add("layout-menu-expanded");
   };
 
+  const { authToken } = useAuth();
+
+  const var_searchText = useRef();
+
+  const handleSearchClick = (e) => {
+    props.handleSearch(e.target.value);
+  };
 
   return (
     <>
@@ -26,14 +35,23 @@ const Search = () => {
         >
           <div className="navbar-nav align-items-center">
             <div className="nav-item d-flex align-items-center">
-              <i className="bx bx-search fs-4 lh-0"></i>
+              <i
+                className="bx bx-search fs-4 lh-0"
+                onClick={handleSearchClick}
+              ></i>
               <input
                 autoFocus
                 type="text"
                 className="form-control border-0 shadow-none"
-                placeholder="Cari Produk..."
+                placeholder="Cari Pelanggan..."
                 aria-label="Search..."
                 name="nama_query"
+                ref={var_searchText}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    handleSearchClick(e);
+                  }
+                }}
               />
             </div>
           </div>

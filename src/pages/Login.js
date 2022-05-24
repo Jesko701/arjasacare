@@ -1,31 +1,56 @@
 import { useNavigate } from "react-router";
 import React, { useState, useRef } from "react";
 import axios from "axios";
+import { useAuth } from "../Config/Auth";
+import Spinner from "./Component/Spinner";
+import { useProfileContext } from "../Config/ProfileKaryawan";
 
 const Login = () => {
   const [isSpin, setIsSpin] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
   const navigate = useNavigate();
+  const { setAndGetTokens } = useAuth();
+  const { setAndGetProfile } = useProfileContext();
 
   const var_username = useRef();
   const var_pw = useRef();
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const response = var_username.current.value + " " + var_pw.current.value;
+
     try {
+      setIsSpin(true);
       const login = await axios.post(
         `https://arjasa-care-api.herokuapp.com/api/v1/login`,
         {
           username: var_username.current.value,
-          password: var_pw.current.value
+          password: var_pw.current.value,
         }
       );
+      console.log(login.data.data.token);
+      console.log(login.data.data);
+      setAndGetTokens(login.data.data.token);
+      setAndGetProfile({
+        nama: `${login.data.data.karyawan.fullname}`,
+        username: `${login.data.data.karyawan.username}`,
+        is_karyawan: `${login.data.data.karyawan.is_karyawan}`
+      });
       setIsSpin(true);
-      navigate("/home");
-    } catch (msg) {
-      alert("Gagal Login " + msg.error)
-      console.log(msg);
+      navigate("/", { replace: true });
+    } catch (err) {
+      setErrMsg(err.response.data.message);
     }
+    setIsSpin(false);
+  };
+
+  const showFeedback = () => {
+    if (isSpin) return <Spinner />;
+    else if (errMsg != "")
+      return (
+        <div className={`alert alert-danger text-center`} role="alert">
+          {errMsg}
+        </div>
+      );
   };
   return (
     <>
@@ -42,6 +67,7 @@ const Login = () => {
                 </div>
                 <h4 class="mb-2">Selamat datang di Arjasa Care!</h4>
                 <p class="mb-4">Silahkan login terlebih dahulu</p>
+                {showFeedback()}
                 <form
                   id="formAuthentication"
                   class="mb-3"
@@ -88,14 +114,6 @@ const Login = () => {
                       Log-in
                     </button>
                   </div>
-                  {isSpin && (
-                    <div className="d-flex justify-content-center">
-                      <div
-                        className="spinner-border text-primary mb-4"
-                        role="status"
-                      ></div>
-                    </div>
-                  )}
                 </form>
               </div>
             </div>
