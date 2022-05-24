@@ -34,7 +34,7 @@ const Dashboard = () => {
         className="layout-menu menu-vertical menu bg-menu-theme"
       >
         <div className="app-brand demo">
-          <NavLink to="/produk" className="app-brand-link">
+          <NavLink to="/" className="app-brand-link">
             <i className="bx bxs-bolt-circle bx-lg"></i>
             <span className="app-brand-text demo menu-text fw-bolder ms-2">
               ArjasaCare
